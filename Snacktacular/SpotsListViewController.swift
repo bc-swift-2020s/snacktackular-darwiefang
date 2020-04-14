@@ -2,16 +2,21 @@
 
 import UIKit
 import CoreLocation
+import Firebase
+import FirebaseUI
+import GoogleSignIn
 
 class SpotsListViewController: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
     var spots: Spots!
-    
+    var authUI: FUIAuth!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+    authUI = FUIAuth.defaultAuthUI()
+        authUI?.delegate = self
         tableView.delegate = self
         tableView.dataSource = self
         spots = Spots()
@@ -47,4 +52,8 @@ extension SpotsListViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 60
     }
+}
+
+extension SpotsListViewController: FUIAuthDelegat {
+    
 }
